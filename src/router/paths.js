@@ -13,7 +13,7 @@ export default [
   {
     path: '/finderboard',
     name: 'FinderBoard',
-    view: 'TableList'
+    view: 'FinderBoard'
   },
   {
     path: '/losterboard',

@@ -3,15 +3,17 @@
     <v-layout justify-center wrap>
       <v-flex md12>
         <material-card color="green" title="발견 게시판" text="실종견을 발견한 사람들의 게시글입니다.">
-          <v-data-table :headers="headers" :listArray="this.listArray" hide-actions>
+          <v-data-table :headers="headers" :items="items" hide-actions>
             <template slot="headerCell" slot-scope="{ header }">
               <span class="subheading font-weight-light text-success text--darken-3" v-text="header.text"/>
             </template>
-            <template slot="listArray" slot-scope="{ list }" v-if="this.listArray">
-              <td>{{ list.writer }}</td>
-              <td>{{ list.title }}</td>
-              <td>{{ list.writer }}</td>
-              <td class="text-xs-right">{{ list.findPlace }}</td>
+            <template slot="items" slot-scope="{item}" v-if="items">
+            <!-- <tr v-for="p in paginatedData" :key="p"> -->
+              <td>{{ item.writer }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.writer }}</td>
+              <td class="text-xs-right">{{ item.findPlace }}</td>
+            <!-- </tr> -->
             </template>
           </v-data-table>
         </material-card>
@@ -46,15 +48,16 @@ export default {
         align: 'right'
       }
     ],
-    listArray: []
+    items: []
   }),
   created() {
     this.$http.get('/finderboard')
       .then(response => {
         if(JSON.stringify(response.data.success) === "true"){
           alert("response"+JSON.stringify(response.data.success)) 
-          this.listArray = response.data.finderboards;
-          console.log(this.listArray);
+          this.items = response.data.finderboards;
+          console.log(this.items);
+          console.log(this.items[0].body)
         }else{
           alert("로그인이 필요합니다." + response.data.message)
         }
