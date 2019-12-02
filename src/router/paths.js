@@ -7,20 +7,21 @@ export default [
   {
     path: '',
     // Relative to /src/views
+    name: 'Home',
     view: 'Dashboard'
   },
   {
-    path: '/user-profile',
-    name: 'User Profile',
-    view: 'UserProfile'
-  },
-  {
-    path: '/table-list',
-    name: 'Table List',
+    path: '/finderboard',
+    name: 'FinderBoard',
     view: 'TableList'
   },
   {
-    path: '/typography',
+    path: '/losterboard',
+    name: 'LosterBoard',
+    view: 'UserProfile'
+  },
+  {
+    path: '/mypage',
     view: 'Typography'
   },
   {

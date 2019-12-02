@@ -7,22 +7,24 @@
             <v-img :src="logo" height="34" contain/>
           </v-list-tile-avatar>
           <v-list-tile-title class="title">
-            Vuetify MD
+            우 미 알
           </v-list-tile-title>
         </v-list-tile>
         <v-divider/>
+        
         <v-list-tile v-for="(link, i) in links" :key="i" :to="link.to" :active-class="color" avatar class="v-list-item">
           <v-list-tile-action>
             <v-icon>{{ link.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-title v-text="link.text"/>
         </v-list-tile>
-        <v-list-tile active-class="success" class="v-list-item v-list__tile--buy" to="/upgrade">
+
+        <v-list-tile active-class="success" class="v-list-item v-list__tile--buy" to="/">
           <v-list-tile-action>
             <v-icon>mdi-package-up</v-icon>
           </v-list-tile-action>
           <v-list-tile-title class="font-weight-light">
-            Upgrade To PRO
+            Log Out
           </v-list-tile-title>
         </v-list-tile>
       </v-layout>
@@ -32,10 +34,7 @@
 
 <script>
 // Utilities
-import {
-  mapMutations,
-  mapState
-} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   props: {
@@ -50,22 +49,22 @@ export default {
       {
         to: '/',
         icon: 'mdi-view-dashboard',
-        text: 'Dashboard'
+        text: 'Home'
       },
       {
-        to: '/user-profile',
+        to: '/finderboard',
         icon: 'mdi-account',
-        text: 'User Profile'
+        text: 'Finder Board'
       },
       {
-        to: '/table-list',
+        to: '/losterboard',
         icon: 'mdi-clipboard-outline',
-        text: 'Table List'
+        text: 'Loster Board'
       },
       {
-        to: '/typography',
+        to: '/mypage',
         icon: 'mdi-format-font',
-        text: 'Typography'
+        text: 'My Page'
       },
       {
         to: '/icons',
