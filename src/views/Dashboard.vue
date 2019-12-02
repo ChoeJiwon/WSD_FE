@@ -59,7 +59,7 @@
         <material-stats-card color="info" icon="mdi-twitter" title="Followers" value="+245" sub-icon="mdi-update" sub-text="Just Updated"/>
       </v-flex>
       <v-flex md12 lg6>
-        <material-card color="orange" title="Employee Stats" text="New employees on 15th September, 2016">
+        <material-card color="orange" title="발견 게시글" text="발견 게시글 중 최신 글 5개 입니다.">
           <v-data-table :headers="headers" :items="items" hide-actions>
             <template slot="headerCell" slot-scope="{ header }">
               <span class="font-weight-light text-warning text--darken-3" v-text="header.text"/>

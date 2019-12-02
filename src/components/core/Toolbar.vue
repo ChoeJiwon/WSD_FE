@@ -12,7 +12,6 @@
     <v-spacer/>
     <v-toolbar-items>
       <v-flex align-center layout py-2>
-        <v-text-field class="mr-4 purple-input" label="Search..." hide-details color="purple"/>
         <router-link v-ripple class="toolbar-items" to="/">
           <v-icon color="tertiary">mdi-view-dashboard</v-icon>
         </router-link>
