@@ -1,16 +1,8 @@
 <template>
   <v-container>
     <v-layout justify-center>
-      <v-flex
-        xs12
-        sm10
-        md8
-      >
-        <material-card
-          color="primary"
-          title="Vuetify Material Dashboard PRO"
-          text="Are you looking for more components? Please check our Premium Version of Vuetify Material Dashboard PRO."
-        >
+      <v-flex xs12 sm10 md8>
+        <material-card color="primary" title="Vuetify Material Dashboard PRO" text="Are you looking for more components? Please check our Premium Version of Vuetify Material Dashboard PRO.">
           <table class="v-table">
             <thead>
               <tr>
@@ -61,17 +53,10 @@
               <tr>
                 <th/>
                 <td>
-                  <v-btn
-                    color="grey"
-                    disabled
-                  >Current Version</v-btn>
+                  <v-btn color="grey" disabled>Current Version</v-btn>
                 </td>
                 <td>
-                  <v-btn
-                    color="success"
-                    target="_blank"
-                    href="https://www.creative-tim.com/product/vuetify-material-dashboard-pro?ref=vtymd-upgrade-page"
-                  >Upgrade to Pro</v-btn>
+                  <v-btn color="success" target="_blank" href="https://www.creative-tim.com/product/vuetify-material-dashboard-pro?ref=vtymd-upgrade-page">Upgrade to Pro</v-btn>
                 </td>
               </tr>
             </tbody>
