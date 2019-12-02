@@ -1,9 +1,5 @@
 <template>
-  <material-card
-    v-bind="$attrs"
-    class="v-card--material-chart"
-    v-on="$listeners"
-  >
+  <material-card v-bind="$attrs" class="v-card--material-chart" v-on="$listeners">
     <chartist
       slot="header"
       :data="data"
@@ -16,10 +12,7 @@
 
     <slot />
 
-    <slot
-      slot="actions"
-      name="actions"
-    />
+    <slot slot="actions" name="actions"/>
   </material-card>
 </template>
 
