@@ -2,30 +2,17 @@
   <v-container fill-height fluid>
     <v-layout justify-center align-center>
       <v-flex xs12>
-        <material-card color="green" title="Material Dashboard Heading" text="Created using Roboto Font Family">
+        <material-card color="green" title="LOGIN" text="ID와 PW를 입력하세요.">
           <v-card-text>
-            <h2 class="font-weight-light mb-4">Typography</h2>
-
-            <v-container class="pa-0" grid-list-xl fluid>
-              <v-layout v-for="(t, i) in typography" :key="i" align-end wrap>
-                <v-flex xs1 md3>
-                  <span class="tim-note" v-text="t[0]" />
-                </v-flex>
-                <v-flex xs8>
-                  <component :is="t[2]" :class="i">
-                    <template v-if="i !== 'quote'">
-                      {{ t[1] }}
-                    </template>
-                    <p v-if="i === 'quote'">{{ t[1] }}</p>
-                    <small v-if="i === 'quote'">Kanye West, Musician</small>
-                    <template v-if="i === 'small'">
-                      <br>
-                      <small>Use 'small' tag for the headers</small>
-                    </template>
-                  </component>
-                </v-flex>
-              </v-layout>
-            </v-container>
+            <v-flex xs12 md4>
+                  <v-text-field v-model="ID" label="ID를 입력하세요."/>
+            </v-flex>
+            <v-flex xs12 md4>
+                  <v-text-field v-model="PW" label="PW를 입력하세요."/>
+            </v-flex>
+            <v-flex xs12 text-xs-right>
+                  <v-btn class="mx-0 font-weight-light" color="success" @click="login">Login</v-btn>
+            </v-flex>
           </v-card-text>
         </material-card>
       </v-flex>
@@ -40,25 +27,32 @@ const material = 'The Life of Material Dashboard'
 const small = 'Header with small subtitle'
 
 export default {
-  data: () => ({
-    typography: {
-      'heading-1': ['Header 1', material, 'h1'],
-      'heading-2': ['Header 2', material, 'h2'],
-      'heading-3': ['Header 3', material, 'h3'],
-      'heading-4': ['Header 4', material, 'h4'],
-      'heading-5': ['Header 5', material, 'h5'],
-      'heading-6 text-uppercase': ['Header 6', material, 'h6'],
-      '': ['Paragraph', leader, 'p'],
-      'quote': ['Quote', leader, 'blockquote'],
-      'text--disabled': ['Muted Text', leaderShort, 'p'],
-      'text-primary': ['Primary Text', leaderShort, 'p'],
-      'text-info': ['Info Text', leaderShort, 'p'],
-      'text-success': ['Success Text', leaderShort, 'p'],
-      'text-warning': ['Warning Text', leaderShort, 'p'],
-      'text-danger': ['Danger Text', leaderShort, 'p'],
-      'small': ['Small Tag', small, 'h2']
+  data: function (){
+    return {
+      ID: '',
+      PW: ''
     }
-  })
+  },
+  methods: {
+    login: function () {
+      this.$http.post('/login', {"ID":this.ID, "PW":this.PW})
+      .then((response) => {  //로그인 성공
+          if(JSON.stringify(response.data.success)==="true"){
+            alert("성공~")
+              this.$store.commit("setUserInfo")
+              this.$router.push('/') ;
+          }
+          
+        },
+        (error) => { // error 를 보여줌
+          alert(error.response.data.error)
+        }
+      )
+      .catch(error => {
+        alert(error)
+      })
+    }
+  }
 }
 </script>
 
