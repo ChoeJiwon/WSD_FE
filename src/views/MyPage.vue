@@ -41,7 +41,15 @@ export default {
       this.$http.post('/login', {"ID":this.ID, "PW":this.PW})
       .then((response) => {  //로그인 성공
           if(JSON.stringify(response.data.success)==="true"){
-            alert("성공~")
+            
+              alert("성공~")
+              let user = response.data.user;
+
+              let payload = {
+                id: user._id,
+                name: user.name,
+                live: user.live
+              };
               this.$store.commit("setUserInfo")
               this.$router.push('/') ;
           }
