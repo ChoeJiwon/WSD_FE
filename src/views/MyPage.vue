@@ -8,7 +8,10 @@
                   <v-text-field v-model="ID" label="ID를 입력하세요."/>
             </v-flex>
             <v-flex xs12 md4>
-                  <v-text-field v-model="PW" label="PW를 입력하세요."/>
+                  <v-text-field v-model="PW" 
+                    label="Password"
+                    :type="passwordShow ? 'text' : 'password'"
+                    required/>
             </v-flex>
             <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success" @click="login">Login</v-btn>
