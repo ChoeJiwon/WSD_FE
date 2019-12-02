@@ -22,7 +22,7 @@ export default [
   },
   {
     path: '/mypage',
-    view: 'Typography'
+    view: 'MyPage'
   },
   {
     path: '/icons',
