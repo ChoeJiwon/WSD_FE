@@ -44,14 +44,17 @@ export default {
             
               alert("성공~")
               let user = response.data.user;
-
               let payload = {
-                id: user._id,
+                ID: user.ID,
                 name: user.name,
+                phone: user.phone,
+                email: user.email,
                 live: user.live
               };
-              this.$store.commit("setUserInfo")
-              this.$router.push('/') ;
+              this.$store.commit("setUserInfo",payload);
+              alert("완료띠~~");
+              this.$router.push('/');
+              alert("this.$store.state.isUserInfoGetted = "+this.$store.state.isUserInfoGetted)
           }
           
         },
