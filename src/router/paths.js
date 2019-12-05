@@ -25,8 +25,12 @@ export default [
     view: 'MyPage'
   },
   {
-    path: '/icons',
-    view: 'Icons'
+    path: '/writefindpost',
+    view: 'WriteFindPost'
+  },
+  {
+    path: '/writelostpost',
+    view: 'WriteLostPost'
   },
   {
     path: '/maps',

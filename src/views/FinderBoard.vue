@@ -2,7 +2,7 @@
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
       <v-flex xs12 sm4 offset-sm8>
-        <v-btn class="ma-2" outlined color="cyan">글쓰기</v-btn>
+        <v-btn class="ma-2" outlined color="cyan" @click="onClicked()">글쓰기</v-btn>
         <v-text-field outlined label="검색" v-model="search"  class="d-inline" single-line hide-details clearable></v-text-field>
       </v-flex>
       <v-flex md12>
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     onClicked: function(){
-      this.$router.push('/icons')
+      this.$router.push('/writefindpost')
     },
   }
 }
