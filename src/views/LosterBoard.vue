@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     onClicked: function(){
-      this.$router.push('/icons')
+      this.$router.push('/writelostpost')
     },
   }
 }
