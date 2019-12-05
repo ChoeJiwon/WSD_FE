@@ -47,8 +47,8 @@ export default {
       headers: [
         {
           sortable: false,
-          text: 'ID',
-          value: 'id'
+          text: '사진',
+          value: 'img'
         },
         {
           sortable: false,

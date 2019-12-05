@@ -19,7 +19,7 @@
           <v-list-tile-title v-text="link.text"/>
         </v-list-tile>
 
-        <v-list-tile active-class="success" class="v-list-item v-list__tile--buy" to="/">
+        <v-list-tile active-class="success" class="v-list-item v-list__tile--buy" @click="signOut" to="/">
           <v-list-tile-action>
             <v-icon>mdi-package-up</v-icon>
           </v-list-tile-action>
@@ -99,7 +99,15 @@ export default {
   },
 
   methods: {
-    ...mapMutations('app', ['setDrawer', 'toggleDrawer'])
+    ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
+    signOut: function(){
+      this.$http.get('/login/logout').then(res=>{
+        alert(res.sucess);
+      })
+
+
+
+    }
   }
 }
 </script>
