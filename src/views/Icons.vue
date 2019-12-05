@@ -1,250 +1,86 @@
 <template>
-  <v-container fill-height fluid style="flex-wrap: wrap;">
-    <material-card color="green">
-      <div slot="header">
-        <div class="title font-weight-light mb-2">Material Design Icons</div>
-        <div class="category font-weight-thin">
-          See all available
-          <a class="white--text" href="https://materialdesignicons.com/" target="_blank"> Icons </a>
-        </div>
-      </div>
-
-      <v-layout align-center justify-center wrap>
-        <v-flex v-for="icon in icons" :key="icon" ma-2>
-          <v-tooltip top content-class="top">
-            <v-icon slot="activator">{{ icon }}</v-icon>
-            <span>{{ icon }}</span>
-          </v-tooltip>
-        </v-flex>
-      </v-layout>
-    </material-card>
-
-    <div class="mx-auto">
-      <v-btn large class="mx-0 font-weight-light" color="success" href="https://materialdesignicons.com/" target="_blank" round>
-        <v-icon left>mdi-material-design</v-icon>
-        <span>See all icons</span>
-      </v-btn>
-    </div>
+  <v-container fill-height fluid grid-list-xl>
+    <v-layout justify-center wrap>
+      <v-flex xs12 md8>
+        <material-card color="green" title="발견 게시글 작성" text="게시글 작성을 위한 정보를 입력해 주세요.">
+          <v-form>
+            <v-container py-0>
+              <v-layout wrap>
+                <v-flex xs12 md4>
+                  <v-text-field label="Company (disabled)" disabled/>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field class="purple-input" label="User Name"/>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field label="Email Address" class="purple-input"/>
+                </v-flex>
+                <v-flex xs12 md6>
+                  <v-text-field label="First Name" class="purple-input"/>
+                </v-flex>
+                <v-flex xs12 md6>
+                  <v-text-field label="Last Name" class="purple-input"/>
+                </v-flex>
+                <v-flex xs12 md12>
+                  <v-text-field label="Adress" class="purple-input"/>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field label="City" class="purple-input"/>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field label="Country" class="purple-input"/>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field class="purple-input" label="Postal Code" type="number"/>
+                </v-flex>
+                <v-flex xs12>
+                  <v-textarea class="purple-input" label="About Me" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+                </v-flex>
+                <v-flex xs12 text-xs-right>
+                  <v-btn class="mx-0 font-weight-light" color="success">Update Profile</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
+        </material-card>
+      </v-flex>
+      <v-flex xs12 md4>
+        <material-card class="v-card-profile">
+          <v-avatar slot="offset" class="mx-auto d-block" size="130">
+            <img src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg">
+          </v-avatar>
+          <v-card-text class="text-xs-center">
+            <h6 class="category text-gray font-weight-thin mb-3">CEO / CO-FOUNDER</h6>
+            <h4 class="card-title font-weight-light">Alec Thompson</h4>
+            <p class="card-description font-weight-light">Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+            <v-btn color="success" round class="font-weight-light">Follow</v-btn>
+          </v-card-text>
+        </material-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    icons: [
-      'mdi-access-point',
-      'mdi-access-point-network',
-      'mdi-account',
-      'mdi-account-alert',
-      'mdi-account-box',
-      'mdi-account-box-multiple',
-      'mdi-account-box-outline',
-      'mdi-account-card-details',
-      'mdi-account-check',
-      'mdi-account-circle',
-      'mdi-account-convert',
-      'mdi-account-edit',
-      'mdi-account-group',
-      'mdi-account-heart',
-      'mdi-account-key',
-      'mdi-account-location',
-      'mdi-account-minus',
-      'mdi-account-multiple',
-      'mdi-account-multiple-check',
-      'mdi-account-multiple-minus',
-      'mdi-account-multiple-outline',
-      'mdi-account-multiple-plus',
-      'mdi-account-multiple-plus-outline',
-      'mdi-account-network',
-      'mdi-account-off',
-      'mdi-account-outline',
-      'mdi-account-plus',
-      'mdi-account-plus-outline',
-      'mdi-account-remove',
-      'mdi-account-search',
-      'mdi-account-search-outline',
-      'mdi-account-settings',
-      'mdi-account-settings-variant',
-      'mdi-account-star',
-      'mdi-account-switch',
-      'mdi-accusoft',
-      'mdi-adjust',
-      'mdi-adobe',
-      'mdi-air-conditioner',
-      'mdi-airballoon',
-      'mdi-airplane',
-      'mdi-airplane-landing',
-      'mdi-airplane-off',
-      'mdi-airplane-takeoff',
-      'mdi-airplay',
-      'mdi-airport',
-      'mdi-alarm',
-      'mdi-alarm-bell',
-      'mdi-alarm-check',
-      'mdi-alarm-light',
-      'mdi-alarm-multiple',
-      'mdi-alarm-off',
-      'mdi-alarm-plus',
-      'mdi-alarm-snooze',
-      'mdi-album',
-      'mdi-alert',
-      'mdi-alert-box',
-      'mdi-alert-circle',
-      'mdi-alert-circle-outline',
-      'mdi-alert-decagram',
-      'mdi-alert-octagon',
-      'mdi-alert-octagram',
-      'mdi-alert-outline',
-      'mdi-alien',
-      'mdi-all-inclusive',
-      'mdi-alpha',
-      'mdi-alphabetical',
-      'mdi-altimeter',
-      'mdi-amazon',
-      'mdi-amazon-alexa',
-      'mdi-amazon-drive',
-      'mdi-ambulance',
-      'mdi-amplifier',
-      'mdi-anchor',
-      'mdi-android',
-      'mdi-android-debug-bridge',
-      'mdi-android-head',
-      'mdi-android-studio',
-      'mdi-angle-acute',
-      'mdi-angle-obtuse',
-      'mdi-angle-right',
-      'mdi-angular',
-      'mdi-angularjs',
-      'mdi-animation',
-      'mdi-animation-play',
-      'mdi-anvil',
-      'mdi-apple',
-      'mdi-apple-finder',
-      'mdi-apple-icloud',
-      'mdi-apple-ios',
-      'mdi-apple-keyboard-caps',
-      'mdi-apple-keyboard-command',
-      'mdi-apple-keyboard-control',
-      'mdi-apple-keyboard-option',
-      'mdi-apple-keyboard-shift',
-      'mdi-apple-safari',
-      'mdi-application',
-      'mdi-approval',
-      'mdi-apps',
-      'mdi-arch',
-      'mdi-archive',
-      'mdi-arrange-bring-forward',
-      'mdi-arrange-bring-to-front',
-      'mdi-arrange-send-backward',
-      'mdi-arrange-send-to-back',
-      'mdi-arrow-all',
-      'mdi-arrow-bottom-left',
-      'mdi-arrow-bottom-left-bold-outline',
-      'mdi-arrow-bottom-left-thick',
-      'mdi-arrow-bottom-right',
-      'mdi-arrow-bottom-right-bold-outline',
-      'mdi-arrow-bottom-right-thick',
-      'mdi-arrow-collapse',
-      'mdi-arrow-collapse-all',
-      'mdi-arrow-collapse-down',
-      'mdi-arrow-collapse-horizontal',
-      'mdi-arrow-collapse-left',
-      'mdi-arrow-collapse-right',
-      'mdi-arrow-collapse-up',
-      'mdi-arrow-collapse-vertical',
-      'mdi-arrow-decision',
-      'mdi-arrow-decision-auto',
-      'mdi-arrow-decision-auto-outline',
-      'mdi-arrow-decision-outline',
-      'mdi-arrow-down',
-      'mdi-arrow-down-bold',
-      'mdi-arrow-down-bold-box',
-      'mdi-arrow-down-bold-box-outline',
-      'mdi-arrow-down-bold-circle',
-      'mdi-arrow-down-bold-circle-outline',
-      'mdi-arrow-down-bold-hexagon-outline',
-      'mdi-arrow-down-bold-outline',
-      'mdi-arrow-down-box',
-      'mdi-arrow-down-drop-circle',
-      'mdi-arrow-down-drop-circle-outline',
-      'mdi-arrow-down-thick',
-      'mdi-arrow-expand',
-      'mdi-arrow-expand-all',
-      'mdi-arrow-expand-down',
-      'mdi-arrow-expand-horizontal',
-      'mdi-arrow-expand-left',
-      'mdi-arrow-expand-right',
-      'mdi-arrow-expand-up',
-      'mdi-arrow-expand-vertical',
-      'mdi-arrow-left',
-      'mdi-arrow-left-bold',
-      'mdi-arrow-left-bold-box',
-      'mdi-arrow-left-bold-box-outline',
-      'mdi-arrow-left-bold-circle',
-      'mdi-arrow-left-bold-circle-outline',
-      'mdi-arrow-left-bold-hexagon-outline',
-      'mdi-arrow-left-bold-outline',
-      'mdi-arrow-left-box',
-      'mdi-arrow-left-drop-circle',
-      'mdi-arrow-left-drop-circle-outline',
-      'mdi-arrow-left-right-bold-outline',
-      'mdi-arrow-left-thick',
-      'mdi-arrow-right',
-      'mdi-arrow-right-bold',
-      'mdi-arrow-right-bold-box',
-      'mdi-arrow-right-bold-box-outline',
-      'mdi-arrow-right-bold-circle',
-      'mdi-arrow-right-bold-circle-outline',
-      'mdi-arrow-right-bold-hexagon-outline',
-      'mdi-arrow-right-bold-outline',
-      'mdi-arrow-right-box',
-      'mdi-arrow-right-drop-circle',
-      'mdi-arrow-right-drop-circle-outline',
-      'mdi-arrow-right-thick',
-      'mdi-arrow-split-horizontal',
-      'mdi-arrow-split-vertical',
-      'mdi-arrow-top-left',
-      'mdi-arrow-top-left-bold-outline',
-      'mdi-arrow-top-left-thick',
-      'mdi-arrow-top-right',
-      'mdi-arrow-top-right-bold-outline',
-      'mdi-arrow-top-right-thick',
-      'mdi-arrow-up',
-      'mdi-arrow-up-bold',
-      'mdi-arrow-up-bold-box',
-      'mdi-arrow-up-bold-box-outline',
-      'mdi-arrow-up-bold-circle',
-      'mdi-arrow-up-bold-circle-outline',
-      'mdi-arrow-up-bold-hexagon-outline',
-      'mdi-arrow-up-bold-outline',
-      'mdi-arrow-up-box',
-      'mdi-arrow-up-down-bold-outline',
-      'mdi-arrow-up-drop-circle',
-      'mdi-arrow-up-drop-circle-outline',
-      'mdi-arrow-up-thick',
-      'mdi-artist',
-      'mdi-assistant',
-      'mdi-asterisk',
-      'mdi-at',
-      'mdi-atlassian',
-      'mdi-atom',
-      'mdi-attachment',
-      'mdi-audio-video',
-      'mdi-audiobook',
-      'mdi-augmented-reality',
-      'mdi-auto-fix',
-      'mdi-auto-upload',
-      'mdi-autorenew',
-      'mdi-av-timer',
-      'mdi-axe',
-      'mdi-azure',
-      'mdi-baby',
-      'mdi-baby-buggy',
-      'mdi-backburger',
-      'mdi-backspace',
-      'mdi-backup-restore',
-      'mdi-badminton'
-    ]
-  })
+  data(){
+        return{
+            title: '',
+            body: '',
+            created: '',
+            writer: '',
+            petName: '',
+            petSex: '',
+            petType: '',
+            findPlace: '',
+            findDate: '',
+            money: 0,
+            comment:[{
+                body:'',
+                writer:'',
+                created:'',
+            }]
+        }
+    },
 }
 </script>
