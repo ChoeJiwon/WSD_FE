@@ -101,12 +101,11 @@ export default {
   methods: {
     ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
     signOut: function(){
-      this.$http.get('/login/logout').then(res=>{
-        alert(res.sucess);
-      })
-
-
-
+        this.$http.get('/login/logout').then((res)=>{
+          if(res.data.success==true){
+            this.$store.commit("setInitialize");
+          }
+        })
     }
   }
 }
