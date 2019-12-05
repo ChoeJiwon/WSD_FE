@@ -18,7 +18,7 @@ export default [
   {
     path: '/losterboard',
     name: 'LosterBoard',
-    view: 'UserProfile'
+    view: 'LosterBoard'
   },
   {
     path: '/mypage',
