@@ -1,9 +1,14 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
-      <v-flex xs12 sm4 offset-sm8>
-        <v-btn class="ma-2" outlined color="cyan" @click="onClicked()">글쓰기</v-btn>
-        <v-text-field outlined label="검색" v-model="search"  class="d-inline" single-line hide-details clearable></v-text-field>
+      <v-flex d-flex justify-start xs12 sm20>
+        <v-btn class="ma-2" outlined color="cyan" @click="onClicked()"><v-icon>mdi-lead-pencil</v-icon>글쓰기</v-btn>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-text-field xs12 md4 outlined label="검색" v-model="search" prepend-inner-icon="mdi-magnify" single-line hide-details clearable></v-text-field>
       </v-flex>
       <v-flex md12>
         <material-card color="green" title="발견 게시판" text="실종견을 발견한 사람들의 게시글입니다.">
@@ -19,8 +24,7 @@
             <template slot="items" slot-scope="{item}" v-if="items">
               <td>{{ item.writer }}</td>
               <td>
-                <!-- <v-btn solo :to="{name: 'Icons', params: {_id: item._id}}">{{ item.title }}</v-btn> -->
-                <v-btn class="ma-2" outlined color="indigo">{{ item.title }}</v-btn>
+                <v-btn text color="blue" @click="showPost(item._id)" value="item.title">{{item.title}}</v-btn>
               </td>
               <td>{{ item.writer }}</td>
               <td class="text-xs-right">{{ item.created }}</td>
@@ -62,6 +66,11 @@ export default {
     onClicked: function(){
       this.$router.push('/writelostpost')
     },
+    showPost: function(item_id){
+      this.$router.push({
+        path:`/showlostpost/${item_id}`
+      })
+    }
   }
 }
 </script>

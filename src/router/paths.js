@@ -11,6 +11,10 @@ export default [
     view: 'Dashboard'
   },
   {
+    path: '/mypage',
+    view: 'MyPage'
+  },
+  {
     path: '/finderboard',
     name: 'FinderBoard',
     view: 'FinderBoard'
@@ -21,16 +25,20 @@ export default [
     view: 'LosterBoard'
   },
   {
-    path: '/mypage',
-    view: 'MyPage'
-  },
-  {
     path: '/writefindpost',
     view: 'WriteFindPost'
   },
   {
     path: '/writelostpost',
     view: 'WriteLostPost'
+  },
+  {
+    path: '/showfindpost/:_id',
+    view: 'ShowFindPost'
+  },
+  {
+    path: '/showlostpost/:_id',
+    view: 'ShowLostPost'
   },
   {
     path: '/maps',

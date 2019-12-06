@@ -66,11 +66,6 @@ export default {
         icon: 'mdi-format-font',
         text: 'My Page'
       },
-      {
-        to: '/icons',
-        icon: 'mdi-chart-bubble',
-        text: 'Icons'
-      },
       // {
       //   to: '/maps',
       //   icon: 'mdi-map-marker',
