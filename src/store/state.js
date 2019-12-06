@@ -2,6 +2,7 @@
 
 export default {
   userInfo: {//유저의 정보를 저장하는 객체
+    _id:"",
     ID: "",
     name: "",
     phone: "",

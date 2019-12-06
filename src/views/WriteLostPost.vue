@@ -30,6 +30,10 @@
                 <v-flex xs12 md4>
                   <v-text-field label="사례금(만원)" v-model="money" class="purple-input"/>
                 </v-flex>
+                <v-flex xs12 md4>
+                  <input type="file" @change="fileSeleted">
+                  <v-btn color="green" @click="sendFile">Send</v-btn>
+                </v-flex>
                 <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success" @click="onClicked">작성 완료</v-btn>
                 </v-flex>
@@ -46,6 +50,7 @@
 export default {
   data(){
         return{
+            file:'',
             title: '',
             body: '',
             created: '',
@@ -74,6 +79,35 @@ export default {
                 this.$router.push('/losterboard')
             }).catch((err) => {
                 alert("Error", err)
+            })
+        },
+        fileSeleted:function(){
+          this.file=event.target.file[0];
+        },
+        sendFile:function(){
+            var formData=new FormData();
+            var config={
+                header:{'Content-Type': 'multipart/form-data'}
+            };
+            console.log(this.file);
+            formData.append('img',this.file);
+            formData.append('body',this.body);
+            formData.append('petName',this.petName);
+            formData.append('petSex',this.petSex);
+            formData.append('petType',this.petType);
+            formData.append('lostPlace',this.lostPlace);
+            formData.append('lostDate',this.lostDate);
+            formData.append('money',this.money);
+
+            for(let key of formData.entries()){
+                console.log(`${key}`);
+            }
+
+            this.$http.post('/losterboard',formData,config).then((response) => {
+                console.log(response);
+                this.$router.push('/losterboard')
+            }).catch((err) => {
+                alert(err);
             })
         }
     }
