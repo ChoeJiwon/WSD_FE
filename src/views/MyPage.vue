@@ -8,7 +8,7 @@
                   <v-text-field v-model="ID" label="ID를 입력하세요."/>
             </v-flex>
             <v-flex xs12 md4>
-                  <v-text-field v-model="PW" 
+                  <v-text-field v-model="PW"
                     label="Password"
                     :type="passwordShow ? 'text' : 'password'"
                     required/>
@@ -41,22 +41,18 @@ export default {
       this.$http.post('/login', {"ID":this.ID, "PW":this.PW})
       .then((response) => {  //로그인 성공
           if(JSON.stringify(response.data.success)==="true"){
-            
-              alert("성공~")
               let user = response.data.user;
               let payload = {
+                 _id:user._id,
                 ID: user.ID,
                 name: user.name,
                 phone: user.phone,
                 email: user.email,
                 live: user.live
               };
-              this.$store.commit("setUserInfo",payload);
-              alert("완료띠~~");
+              this.$store.commit("setUserInfo", payload);
               this.$router.push('/');
-              alert("this.$store.state.isUserInfoGetted = "+this.$store.state.isUserInfoGetted)
           }
-          
         },
         (error) => { // error 를 보여줌
           alert(error.response.data.error)
