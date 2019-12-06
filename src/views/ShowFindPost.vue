@@ -41,28 +41,29 @@
                   <!-- <v-text-field label="Country" class="purple-input"/> -->
                 </v-flex>
                 <v-divider></v-divider>
-                <v-list>
-                    <v-subheader>댓글</v-subheader>
-                    <v-list-item-group v-model="item" color="primary">
-                        <v-list-item
-                        v-for="comment in findpost.comments"
-                        :key="comment"
-                        >
-                        <v-list-item-content>
-                        <!-- <v-list-item-icon> -->
-                            <!-- <v-icon v-text="comment.writer"></v-icon> -->
-                            <v-list-item-title v-text="comment.writer"></v-list-item-title>
-                        <!-- </v-list-item-icon> -->
-                        </v-list-item-content>
-                        <v-list-item-content>
-                            <v-list-item-title v-text="comment.body"></v-list-item-title>
-                        </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
+                <v-divider></v-divider>
+                <v-data-table
+                    :headers="headers" 
+                    :items="items" 
+                    :items-per-page="5" 
+                    class="elevation-1" 
+                    :search="search"
+                    loading-text="Loading... Please wait">
+                    <template slot="headerCell" slot-scope="{ header }">
+                    <span class="subheading font-weight-light text-success text--darken-3" v-text="header.text"/>
+                    </template>
+                    <template slot="items" slot-scope="{item}" v-if="items">
+                    <td>{{ item.writer }}</td>
+                    <td>{{ item.body }}</td>
+                    <td class="text-xs-right" outlined>{{ item.created }}</td>
+                    <v-btn @click="onDelete(item._id, item)" right>
+                        <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    </template>
+                </v-data-table>
                 <v-flex xs12 md6>
-                  <v-textarea label="댓글 남기기" class="purple-input"/>
-                  <v-btn @click="comment" right>작성 완료</v-btn>
+                  <v-textarea outlined label="댓글 남기기" class="purple-input" v-model="newComment.body"/>
+                  <v-btn @click="clicked" right>작성 완료</v-btn>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success">게시글 수정</v-btn>
@@ -74,33 +75,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-            <!-- 글 제목 : {{findpost.title}}
-            <hr>
-            글 내용 : {{findpost.body}}
-            <hr>
-            글 작성 시간 : {{findpost.created}}
-            <hr>
-            글 작성자 : {{findpost.writer}}
-            <hr>
-            견종 : {{findpost.petType}}
-            <hr>
-            발견 장소 : {{findpost.findPlace}}
-            <hr>
-            발견 일시 : {{findpost.findDate}}
-            <hr>
-            댓글
-            <div v-for="comment in findpost.comments" v-bind:key="comment">
-                <span> 작성자 : {{comment.writer}} </span>
-                <span> 내용 : {{comment.body}} </span>
-                <span> 작성시간 : {{comment.created}} </span>
-            </div>
-        </div>
-        <div>
-            <input type="text" v-model="newComment.body" placeholder="댓글내용">
-            <button @click="clicked">작성 완료</button> 
-        </div>
-        <br><br><hr><br>
-    </div> -->
 </template>
 
 <script>
@@ -110,31 +84,53 @@ export default {
         this.$http.get(`/finderboard/${_id}`)
             .then((response) => {
                 this.findpost = response.data.board;
+                this.items = this.findpost.comments;
             });
     },
     data: () => {
         return{
+            headers: [
+                { text: '작성자', value: 'writer', sortable: false},
+                { text: '덧글 내용', value: 'body', sortable: false, filterable: false},
+                { text: '작성날짜', value: 'created', sortable: true, align: 'right'}
+            ],
             findpost: {},
             newComment: {
+                writer: '',
                 body: '',
                 created: '',
             },
+            items: []
         }
     },
     methods:{
-        
         clicked: function(){
-            alert(this._id)
+            const today = new Date();
+            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            const dateTime = date +' '+ time;
+            this.newComment.created = dateTime;
+            this.newComment.writer = this.$store.state.userInfo.name;
             var _id = this.$route.params._id;
             this.$http.post(`/finderboard/${_id}/comments`,
                 {newComment: this.newComment})
                 .then((res)=>{
                     this.findpost.comments.push(this.newComment);
                     this.newComment="";
-                    alert("성공!");
                 }).catch((err) => {
                     alert(err);
                 })
+        },
+        onDelete: function(id, item){
+            const comment_id = id;
+            const post_id = this.$route.params._id;
+            const user_id = this.$store.state.userInfo._id;
+
+            console.log("c id : " + comment_id)
+            console.log("p id : " + post_id)
+            console.log("u id : " + user_id)
+
+            this.$http.delete(`/finderboard/${post_id}/comments/${comment_id}`)
         }
         
     },
