@@ -53,8 +53,6 @@ export default {
       .then(response => {
         if(JSON.stringify(response.data.success) === "true"){
           this.items = response.data.finderboards;
-          console.log(this.items);
-          console.log(this.items[0].body)
         }else{
           alert("로그인이 필요합니다." + response.data.message)
         }
