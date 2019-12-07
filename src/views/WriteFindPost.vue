@@ -7,13 +7,13 @@
             <v-container py-0>
               <v-layout column wrap>
                 <v-flex xs12 md4>
-                  <v-text-field label="글 제목" v-model="title"/>
+                  <v-text-field label="글 제목" v-model="findpost.title"/>
                 </v-flex>
                 <v-flex xs12 md4>
-                  <v-text-field label="반려견 견종" v-model="petType" class="purple-input"/>
+                  <v-text-field label="반려견 견종" v-model="findpost.petType" class="purple-input"/>
                 </v-flex>
                 <v-flex xs12 md12>
-                  <v-text-field label="발견장소" v-model="findPlace" class="purple-input"/>
+                  <v-text-field label="발견장소" v-model="findpost.findPlace" class="purple-input"/>
                 </v-flex>
                   <!-- <v-menu
                     v-model="menu2"
@@ -35,10 +35,10 @@
                     <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
                   </v-menu> -->
                 <v-flex xs12 md12>
-                  <v-text-field label="발견 날짜" v-model="findDate" class="purple-input"/>
+                  <v-text-field label="발견 날짜" v-model="findpost.findDate" class="purple-input"/>
                 </v-flex>
                 <v-flex xs12 md12>
-                  <v-textarea label="내용" v-model="body" class="purple-input" />
+                  <v-textarea label="내용" v-model="findpost.body" class="purple-input" />
                 </v-flex>
                 <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success" @click="onClicked">작성 완료</v-btn>
@@ -56,14 +56,16 @@
 export default {
   data(){
         return{
-            title: '',
-            body: '',
-            created: '',
-            writer: '',
-            petType: '',
-            findPlace: '',
-            findDate: '',
-            money: 0,
+            findpost: {
+              title: '',
+              body: '',
+              created: '',
+              writer: '',
+              petType: '',
+              findPlace: '',
+              findDate: '',
+              money: 0,
+            },
             date: new Date().toISOString().substr(0, 10),
             menu: false,
             modal: false,
@@ -73,9 +75,11 @@ export default {
     methods: {
       onClicked: function(){
             this.$http.post('/finderboard',{
-                body: this.body,
-                findPlace: this.findPlace,
-                petType: this.petType,
+                // findpost: this.findpost,
+                // title: this.findpost.title,
+                body: this.findpost.body,
+                findPlace: this.findpost.findPlace,
+                petType: this.findpost.petType,
             }).then((response) => {
                 alert("글 작성 버튼 클릭됨", response)
                 this.$router.push('/finderboard')
