@@ -48,6 +48,8 @@
                     <td class="text-xs-right" outlined>{{ item.created }}</td>
                     <v-divider vertical></v-divider>
                     <v-btn
+                      small
+                      v-if="$store.state.userInfo.ID === item.id"
                       color="error"
                       dark
                       @click.stop="commentDeleteDialog = true, comment_id = item._id"
