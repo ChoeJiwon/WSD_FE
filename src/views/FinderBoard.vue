@@ -11,11 +11,12 @@
         <v-text-field xs12 md4 outlined label="검색" v-model="search" prepend-inner-icon="mdi-magnify" single-line hide-details clearable></v-text-field>
       </v-flex>
       <v-flex md12>
-        <material-card color="green" title="발견 게시판" text="실종견을 발견한 사람들의 게시글입니다.">
+        <material-card color="green" title="발견 게시판" text="반려견을 발견한 사람들의 게시글입니다.">
           <v-data-table
             :headers="headers" 
             :items="items" 
-            :items-per-page="5" 
+            item-key="_id"
+            :items-per-page="5"
             class="elevation-1" 
             :search="search">
             <template slot="headerCell" slot-scope="{ header }">
@@ -53,6 +54,8 @@ export default {
       .then(response => {
         if(JSON.stringify(response.data.success) === "true"){
           this.items = response.data.finderboards;
+          console.log(this.items);
+          console.log(this.items[0].body)
         }else{
           alert("로그인이 필요합니다." + response.data.message)
         }

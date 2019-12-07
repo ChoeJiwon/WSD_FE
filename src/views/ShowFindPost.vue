@@ -90,6 +90,18 @@
                   <v-textarea solo label="댓글 남기기" class="purple-input" v-model="newComment.body" rows="2"/>
                   <v-divider vertical></v-divider>
                   <v-btn @click="onCommentCreate" class="success">작성 완료</v-btn>
+                  <v-snackbar
+                      v-model="commentSnackbar"
+                    >
+                      삭제할 권한이 없습니다.
+                      <v-btn
+                        color="pink"
+                        text
+                        @click="commentSnackbar = false"
+                      >
+                        Close
+                      </v-btn>
+                    </v-snackbar>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success">게시글 수정</v-btn>
@@ -146,7 +158,6 @@
                         Close
                       </v-btn>
                     </v-snackbar>
-                  <!-- <v-btn @click="onPostDelete(findpost._id)" class="mx-0 font-weight-light" color="error">게시글 삭제</v-btn> -->
                 </v-flex>
               </v-layout>
             </v-container>
@@ -207,13 +218,32 @@ export default {
         },
         onCommentDelete: function(id, item){
             const comment_id = id;
+            const comment_body = item.body;
+            const comment_created = item.created;
+            const comment_ID = item.id;
+
             const post_id = this.$route.params._id;
-            const user_id = this.$store.state.userInfo._id;
+            const user_ID = this.$store.state.userInfo.ID;
+
+            console.log("comment_id: "+comment_id)
+            console.log("comment_ID: "+comment_ID)
+            console.log("post_id: "+post_id)
+            console.log("user_ID: "+user_ID)
 
             this.commentDeleteDialog = false
 
-            this.$http.delete(`/finderboard/${post_id}/comments/${comment_id}`)
-            this.$router.push(`/showfindpost/${post_id}`)
+            if(comment_ID === user_ID){
+              this.$http.delete(`/finderboard/${post_id}/comments/${comment_id}`)
+                .then( (response) => {
+                  if(JSON.stringify(response.data.success) === "true"){
+                    this.$router.push({path: `/showfindpost/${post_id}`})
+                  }
+                })
+            }
+            else{
+              this.commentSnackbar = true;
+            }
+            // this.$router.push(`/showfindpost/${post_id}`)
         },
         onPostDelete: function(id){
             const post_id = id;
@@ -240,6 +270,7 @@ export default {
             else{
               this.postSnackbar = true;
             }
+              this.postDeleteDialog = false;
         }
     },
 }

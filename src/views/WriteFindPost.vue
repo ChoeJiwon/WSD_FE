@@ -15,25 +15,6 @@
                 <v-flex xs12 md12>
                   <v-text-field label="발견장소" v-model="findpost.findPlace" class="purple-input"/>
                 </v-flex>
-                  <!-- <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date"
-                        label="발견 날짜"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-                  </v-menu> -->
                 <v-flex xs12 md12>
                   <v-text-field label="발견 날짜" v-model="findpost.findDate" class="purple-input"/>
                 </v-flex>
@@ -60,11 +41,9 @@ export default {
               title: '',
               body: '',
               created: '',
-              writer: '',
               petType: '',
               findPlace: '',
               findDate: '',
-              money: 0,
             },
             date: new Date().toISOString().substr(0, 10),
             menu: false,
@@ -74,19 +53,35 @@ export default {
     },
     methods: {
       onClicked: function(){
-            this.$http.post('/finderboard',{
-                // findpost: this.findpost,
-                // title: this.findpost.title,
-                body: this.findpost.body,
-                findPlace: this.findpost.findPlace,
-                petType: this.findpost.petType,
-            }).then((response) => {
-                alert("글 작성 버튼 클릭됨", response)
-                this.$router.push('/finderboard')
-            }).catch((err) => {
-                alert("Error", err)
-            })
-        }
+        const today = new Date();
+        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        const dateTime = date +' '+ time;
+        this.findpost.created = dateTime;
+
+        console.log(this.findpost)
+        
+        this.$http.post('/finderboard',{
+          findpost: this.findpost
+        }).then((response) => {
+            alert("글 작성 버튼 클릭됨", response)
+            this.$router.push('/finderboard')
+        }).catch((err) => {
+            alert("Error", err)
+        })
+        // this.$http.post('/finderboard',{
+        //     // findpost: this.findpost,
+        //     // title: this.findpost.title,
+        //     body: this.findpost.body,
+        //     findPlace: this.findpost.findPlace,
+        //     petType: this.findpost.petType,
+        // }).then((response) => {
+        //     alert("글 작성 버튼 클릭됨", response)
+        //     this.$router.push('/finderboard')
+        // }).catch((err) => {
+        //     alert("Error", err)
+        // })
+      }
     },
 }
 </script>

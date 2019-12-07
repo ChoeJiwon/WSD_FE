@@ -11,10 +11,11 @@
         <v-text-field xs12 md4 outlined label="검색" v-model="search" prepend-inner-icon="mdi-magnify" single-line hide-details clearable></v-text-field>
       </v-flex>
       <v-flex md12>
-        <material-card color="green" title="발견 게시판" text="실종견을 발견한 사람들의 게시글입니다.">
+        <material-card color="green" title="실종 게시판" text="반려견을 실종한 사람들의 게시글입니다.">
           <v-data-table
             :headers="headers" 
             :items="items" 
+            item-key="_id"
             :items-per-page="5" 
             class="elevation-1" 
             :search="search">
