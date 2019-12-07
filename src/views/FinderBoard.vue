@@ -42,7 +42,6 @@
             item-key="_id"
             :items-per-page="5"
             class="elevation-1"
-            loading-text="Loading..." 
             :search="search">
             <template slot="headerCell" slot-scope="{ header }">
               <span class="subheading font-weight-light text-success text--darken-3" v-text="header.text"/>
@@ -52,9 +51,7 @@
               <td>
                 <!-- <v-btn class="v-btn--simple" @click="showPost(item._id)" value="item.title" >{{item.title}}</v-btn> -->
                 <v-btn 
-                  class="v-btn--simple" 
-                  color="success" 
-                  large 
+                  color="blue" 
                   @click="showPost(item._id)" 
                   value="item.title" 
                   >{{item.title}}</v-btn>
