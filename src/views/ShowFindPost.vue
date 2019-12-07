@@ -26,29 +26,34 @@
                 <v-flex xs12 md4>
                   <strong class="title right" >발견일시: {{findpost.findDate}}</strong>
                 </v-flex>
+
                 <v-divider></v-divider>
                 <v-divider></v-divider>
+
                 <v-data-table
-                    :headers="headers" 
-                    :items="items" 
-                    :items-per-page="5" 
-                    class="elevation-1" 
-                    color="black"
-                    :search="search"
-                    loading-text="Loading... Please wait">
-                    <template slot="headerCell" slot-scope="{ header }">
+                  :headers="headers" 
+                  :items="items" 
+                  item-key="_id"
+                  :items-per-page="5" 
+                  class="elevation-1" 
+                  color="black"
+                  :search="search"
+                  loading-text="Loading... Please wait">
+                  <template slot="headerCell" slot-scope="{ header }">
                     <span class="subheading font-weight-light text-success text--darken-3" v-text="header.text"/>
-                    </template>
-                    <template slot="items" slot-scope="{item}" v-if="items">
+                  </template>
+                  <template slot="items" slot-scope="{item}" v-if="items">
                     <td>{{ item.writer }}</td>
                     <td>{{ item.body }}</td>
+                    <!-- <td>{{ item._id }}</td> -->
                     <td class="text-xs-right" outlined>{{ item.created }}</td>
                     <v-divider vertical></v-divider>
                     <v-btn
                       color="error"
                       dark
-                      @click.stop="commentDeleteDialog = true"
+                      @click.stop="commentDeleteDialog = true, comment_id = item._id"
                     >
+                      <!-- {{item._id}} -->
                       <v-icon color="white">mdi-delete</v-icon>
                     </v-btn>
 
@@ -65,13 +70,13 @@
 
                         <v-card-actions>
                           <v-spacer></v-spacer>
-
                           <v-btn
                             color="green darken-1"
                             text
-                            @click="onCommentDelete(item._id, item)"
+                            @click="onCommentDelete(comment_id)"
                           >
                             삭제
+                            <!-- {{comment_id}} -->
                           </v-btn>
 
                           <v-btn
@@ -84,7 +89,7 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                    </template>
+                  </template>
                 </v-data-table>
                 <v-flex xs12 md6>
                   <v-textarea solo label="댓글 남기기" class="purple-input" v-model="newComment.body" rows="2"/>
@@ -196,6 +201,7 @@ export default {
             commentDeleteDialog: false,
             commentSnackbar: false,
             postSnackbar: false,
+            comment_id: ''
         }
     },
     methods:{
@@ -214,40 +220,61 @@ export default {
             this.$http.post(`/finderboard/${_id}/comments`,
                 {newComment: this.newComment})
                 .then((res)=>{
-                    this.findpost.comments.push(this.newComment);
-                    this.newComment="";
+                  // console.log("newComment: " + this.newComment);
+                  //   this.findpost.comments.push(this.newComment);
+                  //   this.items.push(this.newComment);
+                    this.newComment={
+                      writer: '',
+                      body: '',
+                      created: ''
+                    };
+                  this.$http.get(`/finderboard/${_id}`)
+                    .then((response) => {
+                        this.findpost = response.data.board;
+                        this.items = this.findpost.comments;
+                        for(let i = 0; i < this.items.length; i++){
+                          console.log(i + "번째 댓글 id: " + this.items[i]._id)
+                          console.log(i + "번째 댓글 작성자 id: " + this.items[i].id)
+                          console.log(i + "번째 댓글 내용: " + this.items[i].body)
+                        }
+                    });
                 }).catch((err) => {
                     alert(err);
                 })
         },
-        onCommentDelete: function(id, item){
-            const comment_id = id;
-            const comment_body = item.body;
-            const comment_created = item.created;
-            const comment_ID = item.id;
+        onCommentDelete: function(comment_id){
+            const comment_idx = this.comment_id;
 
-            const post_id = this.$route.params._id;
-            const user_ID = this.$store.state.userInfo.ID;
+            const post_idx = this.$route.params._id;
+            const user_id = this.$store.state.userInfo.ID;
 
-            console.log("comment_id: "+comment_id)
-            console.log("comment_ID: "+comment_ID)
-            console.log("post_id: "+post_id)
-            console.log("user_ID: "+user_ID)
+            console.log("삭제하려는 댓글 id: "+comment_idx)
+            console.log("post_idx: "+post_idx)
+            console.log("user_id: "+user_id)
 
-            this.commentDeleteDialog = false
+            const index = this.items.findIndex(function(item, i){
+              return item._id === comment_idx
+            });
 
-            if(comment_ID === user_ID){
-              this.$http.delete(`/finderboard/${post_id}/comments/${comment_id}`)
+            console.log("삭제하려는 댓글 index : " + index)
+
+            if(this.items[index].id === user_id){
+              this.$http.delete(`/finderboard/${post_idx}/comments/${comment_idx}`)
                 .then( (response) => {
                   if(JSON.stringify(response.data.success) === "true"){
-                    this.$router.push({path: `/showfindpost/${post_id}`})
+                    this.$http.get(`/finderboard/${post_idx}`)
+                    .then((response) => {
+                        this.findpost = response.data.board;
+                        this.items = this.findpost.comments;
+                    });
                   }
                 })
+              this.commentDeleteDialog = false
             }
             else{
+              this.commentDeleteDialog = false
               this.commentSnackbar = true;
             }
-            // this.$router.push(`/showfindpost/${post_id}`)
         },
         onPostDelete: function(id){
             const post_id = id;
