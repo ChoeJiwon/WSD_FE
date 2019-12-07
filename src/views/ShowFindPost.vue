@@ -204,9 +204,13 @@ export default {
             const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
             const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             const dateTime = date +' '+ time;
+
             this.newComment.created = dateTime;
+
             this.newComment.writer = this.$store.state.userInfo.name;
-            var _id = this.$route.params._id;
+
+            const _id = this.$route.params._id;
+
             this.$http.post(`/finderboard/${_id}/comments`,
                 {newComment: this.newComment})
                 .then((res)=>{
@@ -252,7 +256,7 @@ export default {
             const post_writer_ID = this.findpost.id;
 
             console.log(this.$store.state.userInfo._id);
-            console.log("user ID"+this.$store.state.userInfo.ID);
+            console.log("user ID: "+this.$store.state.userInfo.ID);
             console.log("post id: " + this.findpost.id)
             console.log("writer: " + this.findpost.writer)
             console.log("user name: " + this.$store.state.userInfo.name)
