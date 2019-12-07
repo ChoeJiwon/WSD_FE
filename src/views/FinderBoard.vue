@@ -1,6 +1,30 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
+      <v-dialog
+        v-model="loginDialog"
+        persistent
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title class="headline">불러오기 실패</v-card-title>
+
+          <v-card-text>
+            로그인이 필요한 기능입니다.
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              text
+              @click="moveLogin"
+            >
+              로그인 이동
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-flex d-flex justify-start xs12 sm20>
         <v-btn class="ma-2" outlined color="cyan" @click="onClicked()"><v-icon>mdi-lead-pencil</v-icon>글쓰기</v-btn>
         <v-spacer></v-spacer>
@@ -47,21 +71,21 @@ export default {
       { text: '작성날짜', value: 'created', sortable: false, align: 'right'}
     ],
     items: [],
-    search: ''
+    search: '',
+    loginDialog: false
   }),
   created() {
-    this.$http.get('/finderboard')
-      .then(response => {
-        if(JSON.stringify(response.data.success) === "true"){
-          this.items = response.data.finderboards;
-          console.log(this.items);
-          console.log(this.items[0].body)
-        }else{
-          alert("로그인이 필요합니다." + response.data.message)
-        }
-      }).catch(err => {
-        alert("ERR while FET finderboard" + err)
-      });
+    if(this.$store.state.isUserInfoGetted === false){
+      this.loginDialog = true;
+    }
+    else{
+      this.$http.get('/finderboard')
+        .then(response => {
+            this.items = response.data.finderboards;
+        }).catch(err => {
+          alert("ERR while FET finderboard" + err)
+        });
+    }
   },
   methods: {
     onClicked: function(){
@@ -71,6 +95,10 @@ export default {
       this.$router.push({
         path:`/showfindpost/${item_id}`
       })
+    },
+    moveLogin: function(){
+      this.loginDialog = false;
+      this.$router.push(`login`);
     }
   }
 }
