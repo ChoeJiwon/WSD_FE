@@ -26,7 +26,7 @@
         </v-card>
       </v-dialog>
       <v-flex d-flex justify-start xs12 sm20>
-        <v-btn class="ma-2" outlined color="cyan" @click="onClicked()"><v-icon>mdi-lead-pencil</v-icon>글쓰기</v-btn>
+        <v-btn class="ma-2" outlined color="cyan" @click="onClicked()"><v-icon left>mdi-lead-pencil</v-icon>글쓰기</v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -35,13 +35,14 @@
         <v-text-field xs12 md4 outlined label="검색" v-model="search" prepend-inner-icon="mdi-magnify" single-line hide-details clearable></v-text-field>
       </v-flex>
       <v-flex md12>
-        <material-card color="green" title="실종 게시판" text="반려견을 실종한 사람들의 게시글입니다.">
+        <material-card color="green" title="실종 게시판" text="제목을 클릭하여 게시글을 확인하세요.">
           <v-data-table
             :headers="headers" 
             :items="items" 
             item-key="_id"
             :items-per-page="5" 
             class="elevation-1" 
+            loading
             :search="search">
             <template slot="headerCell" slot-scope="{ header }">
               <span class="subheading font-weight-light text-success text--darken-3" v-text="header.text"/>
