@@ -45,7 +45,6 @@
                   <template slot="items" slot-scope="{item}" v-if="items">
                     <td>{{ item.writer }}</td>
                     <td>{{ item.body }}</td>
-                    <!-- <td>{{ item._id }}</td> -->
                     <td class="text-xs-right" outlined>{{ item.created }}</td>
                     <v-divider vertical></v-divider>
                     <v-btn
@@ -53,7 +52,6 @@
                       dark
                       @click.stop="commentDeleteDialog = true, comment_id = item._id"
                     >
-                      <!-- {{item._id}} -->
                       <v-icon color="white">mdi-delete</v-icon>
                     </v-btn>
 
@@ -76,7 +74,6 @@
                             @click="onCommentDelete(comment_id)"
                           >
                             삭제
-                            <!-- {{comment_id}} -->
                           </v-btn>
 
                           <v-btn
@@ -232,11 +229,11 @@ export default {
                     .then((response) => {
                         this.findpost = response.data.board;
                         this.items = this.findpost.comments;
-                        for(let i = 0; i < this.items.length; i++){
-                          console.log(i + "번째 댓글 id: " + this.items[i]._id)
-                          console.log(i + "번째 댓글 작성자 id: " + this.items[i].id)
-                          console.log(i + "번째 댓글 내용: " + this.items[i].body)
-                        }
+                        // for(let i = 0; i < this.items.length; i++){
+                        //   console.log(i + "번째 댓글 id: " + this.items[i]._id)
+                        //   console.log(i + "번째 댓글 작성자 id: " + this.items[i].id)
+                        //   console.log(i + "번째 댓글 내용: " + this.items[i].body)
+                        // }
                     });
                 }).catch((err) => {
                     alert(err);
@@ -248,15 +245,15 @@ export default {
             const post_idx = this.$route.params._id;
             const user_id = this.$store.state.userInfo.ID;
 
-            console.log("삭제하려는 댓글 id: "+comment_idx)
-            console.log("post_idx: "+post_idx)
-            console.log("user_id: "+user_id)
+            // console.log("삭제하려는 댓글 id: "+comment_idx)
+            // console.log("post_idx: "+post_idx)
+            // console.log("user_id: "+user_id)
 
             const index = this.items.findIndex(function(item, i){
               return item._id === comment_idx
             });
 
-            console.log("삭제하려는 댓글 index : " + index)
+            // console.log("삭제하려는 댓글 index : " + index)
 
             if(this.items[index].id === user_id){
               this.$http.delete(`/finderboard/${post_idx}/comments/${comment_idx}`)
@@ -282,13 +279,13 @@ export default {
             const user_ID = this.$store.state.userInfo.ID;
             const post_writer_ID = this.findpost.id;
 
-            console.log(this.$store.state.userInfo._id);
-            console.log("user ID: "+this.$store.state.userInfo.ID);
-            console.log("post id: " + this.findpost.id)
-            console.log("writer: " + this.findpost.writer)
-            console.log("user name: " + this.$store.state.userInfo.name)
-            console.log("p id : " + post_id)
-            console.log("u _id : " + user_id)
+            // console.log(this.$store.state.userInfo._id);
+            // console.log("user ID: "+this.$store.state.userInfo.ID);
+            // console.log("post id: " + this.findpost.id)
+            // console.log("writer: " + this.findpost.writer)
+            // console.log("user name: " + this.$store.state.userInfo.name)
+            // console.log("p id : " + post_id)
+            // console.log("u _id : " + user_id)
 
             if(user_ID === post_writer_ID){
               this.$http.delete(`/finderboard/${post_id}`)
