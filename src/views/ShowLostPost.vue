@@ -249,7 +249,7 @@ export default {
             // console.log("post_idx: "+post_idx)
             // console.log("user_id: "+user_id)
 
-            const index = this.items.lostIndex(function(item, i){
+            const index = this.items.findIndex(function(item, i){
               return item._id === comment_idx
             });
 
