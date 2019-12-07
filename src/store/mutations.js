@@ -3,7 +3,7 @@
 export default {
   //
   setUserInfo(state, payload){
-    state.userInfo._id=payload._id;
+    state.userInfo._id = payload._id;
     state.userInfo.ID = payload.ID;
     state.userInfo.name = payload.name;
     state.userInfo.phone = payload.phone;
@@ -12,7 +12,7 @@ export default {
     state.isUserInfoGetted = true;
   },
   setInitialize(state){
-    state.userInfo._id="";
+    state.userInfo._id = "";
     state.userInfo.ID = "";
     state.userInfo.name = "";
     state.userInfo.phone = "";

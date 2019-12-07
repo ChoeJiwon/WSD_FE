@@ -30,8 +30,9 @@
                 <v-flex xs12 md4>
                   <v-text-field label="사례금(만원)" v-model="money" class="purple-input"/>
                 </v-flex>
-                <v-flex xs12 md4>
-                  <input type="file" @change="fileSeleted">
+                <v-flex xs12 md12>
+                  <file-input label="File input"></file-input>
+                  <input type="file" label="photo input" @change="fileSeleted">
                   <v-btn color="green" @click="sendFile">Send</v-btn>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
@@ -89,7 +90,6 @@ export default {
             var config={
                 header:{'Content-Type': 'multipart/form-data'}
             };
-            console.log(this.file);
             formData.append('img',this.file);
             formData.append('body',this.body);
             formData.append('petName',this.petName);
@@ -103,7 +103,7 @@ export default {
                 console.log(`${key}`);
             }
 
-            this.$http.post('/losterboard',formData,config).then((response) => {
+            this.$http.post('/losterboard/image',formData,config).then((response) => {
                 console.log(response);
                 this.$router.push('/losterboard')
             }).catch((err) => {

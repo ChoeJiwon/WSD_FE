@@ -11,8 +11,9 @@ export default [
     view: 'Dashboard'
   },
   {
-    path: '/mypage',
-    view: 'MyPage'
+    path: '/login',
+    name: 'Login',
+    view: 'Login'
   },
   {
     path: '/finderboard',
@@ -41,16 +42,11 @@ export default [
     view: 'ShowLostPost'
   },
   {
-    path: '/maps',
-    view: 'Maps'
+    path:'/mypage',
+    view: 'MyPage'
   },
   {
-    path: '/notifications',
-    view: 'Notifications'
-  },
-  {
-    path: '/upgrade',
-    name: 'Upgrade to PRO',
-    view: 'Upgrade'
+    path:'/signup',
+    view: 'SignUp'
   }
 ]

@@ -19,7 +19,7 @@
           <v-list-tile-title v-text="link.text"/>
         </v-list-tile>
 
-        <v-list-tile active-class="success" class="v-list-item v-list__tile--buy" @click="signOut" to="/">
+        <v-list-tile v-if="$store.state.isUserInfoGetted===true" active-class="success" class="v-list-item v-list__tile--buy" @click="logOut" to="/">
           <v-list-tile-action>
             <v-icon>mdi-package-up</v-icon>
           </v-list-tile-action>
@@ -27,6 +27,24 @@
             Log Out
           </v-list-tile-title>
         </v-list-tile>
+        <v-list-tile v-if="$store.state.isUserInfoGetted===false" active-class="success" class="v-list-item v-list__tile--buy" to="/login">
+          <v-list-tile-action>
+            <v-icon>mdi-package-up</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title class="font-weight-light">
+            Login
+          </v-list-tile-title>
+        </v-list-tile>
+
+        <v-list-tile v-if="$store.state.isUserInfoGetted===false" active-class="success" class="v-list-item" to="/signup">
+          <v-list-tile-action>
+            <v-icon>mdi-package-up</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title class="font-weight-light">
+            SingUp
+          </v-list-tile-title>
+        </v-list-tile>
+
       </v-layout>
     </v-img>
   </v-navigation-drawer>
@@ -95,7 +113,8 @@ export default {
 
   methods: {
     ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
-    signOut: function(){
+    
+    logOut: function(){
         this.$http.get('/login/logout').then((res)=>{
           if(res.data.success==true){
             this.$store.commit("setInitialize");
@@ -113,7 +132,7 @@ export default {
 
       &--buy {
         margin-top: auto;
-        margin-bottom: 17px;
+        margin-bottom: 5px;
       }
     }
   }
