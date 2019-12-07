@@ -5,27 +5,23 @@
         <material-card color="green" title="SIGNUP" text="입력하세요.">
           <v-card-text>
             <v-flex xs12 md4>
-                  <v-text-field v-model="user.id" label="ID"/>
+                  <v-text-field v-model="id" label="ID"/>
             </v-flex>
             <v-flex xs12 md4>
-                  <v-text-field v-model="user.password" label="Password" :type="passwordShow ? 'text' : 'password'" required/>
+                  <v-text-field v-model="password" label="Password" :type="passwordShow ? 'text' : 'password'" required/>
             </v-flex>
 			<v-flex xs12 md4>
-                  <v-text-field v-model="user.name" label="Name"/>
+                  <v-text-field v-model="name" label="Name"/>
             </v-flex>
 			<v-flex xs12 md4>
-                  <v-text-field v-model="user.phone" label="Phone Number"/>
+                  <v-text-field v-model="phone" label="Phone Number"/>
             </v-flex>
 			<v-flex xs12 md4>
-                  <v-text-field v-model="user.email" label="E-mail"/>
+                  <v-text-field v-model="email" label="E-mail"/>
             </v-flex>
-			
-			
 			<v-flex xs12 md4>
-                  <v-text-field v-model="user.live" label="Address"/>
+                  <v-text-field v-model="live" label="Address"/>
             </v-flex>
-
-
             <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success" @click="signUp">SingUp</v-btn>
             </v-flex>
@@ -42,27 +38,29 @@
 export default {
   data: function () {
     return {
-      user: {
-        id: '',
-        password: '',
-        name: '',
-        phone: '',
-        email: '',
-        live: ''
-      }
-    }
+		id: '',
+		password: '',
+		name: '',
+		phone: '',
+		email: '',
+		live: ''
+	}
   },
   methods: {
     signUp: function () {
-      this.$http.post('/api/users', { //axios 사용
-        user: this.user
+      this.$http.post('/users', { //axios 사용
+		ID:this.id,
+		PW:this.password,
+		name:this.name,
+		phone:this.phone,
+		email:this.email,
+		live:this.live
       })
       .then((response) => {
-        if (response.data.result === 0) {
-          alert('Error, please, try again')
+        if (response.data.success === false) {
+		  alert(response.data.message)
         }
-        if (response.data.result === 1) {
-          alert('Success')
+        if (response.data.success === true) {
           this.$router.push('/login') // Login 페이지로 보내줌
         }
       })
