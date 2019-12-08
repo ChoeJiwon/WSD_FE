@@ -42,6 +42,14 @@ export default [
     view: 'ShowLostPost'
   },
   {
+    path: '/modifyfindpost/:_id',
+    view: 'ModifyFindPost'
+  },
+  {
+    path: '/modifylostpost/:_id',
+    view: 'ModifyLostPost'
+  },
+  {
     path:'/mypage',
     view: 'MyPage'
   },
