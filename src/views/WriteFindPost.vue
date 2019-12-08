@@ -6,9 +6,9 @@
           <v-form>
             <v-container py-0>
               <v-layout column wrap>
-                <v-flex xs12 md4>
+                <!-- <v-flex xs12 md4>
                   <v-text-field label="글 제목" v-model="findpost.title"/>
-                </v-flex>
+                </v-flex> -->
                 <v-flex xs12 md4>
                   <v-text-field label="반려견 견종" v-model="findpost.petType" class="purple-input"/>
                 </v-flex>
@@ -53,34 +53,13 @@ export default {
     },
     methods: {
       onClicked: function(){
-        const today = new Date();
-        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        const dateTime = date +' '+ time;
-        this.findpost.created = dateTime;
-
-        console.log(this.findpost)
-        
         this.$http.post('/finderboard',{
           findpost: this.findpost
         }).then((response) => {
-            alert("글 작성 버튼 클릭됨", response)
             this.$router.push('/finderboard')
         }).catch((err) => {
             alert("Error", err)
         })
-        // this.$http.post('/finderboard',{
-        //     // findpost: this.findpost,
-        //     // title: this.findpost.title,
-        //     body: this.findpost.body,
-        //     findPlace: this.findpost.findPlace,
-        //     petType: this.findpost.petType,
-        // }).then((response) => {
-        //     alert("글 작성 버튼 클릭됨", response)
-        //     this.$router.push('/finderboard')
-        // }).catch((err) => {
-        //     alert("Error", err)
-        // })
       }
     },
 }
