@@ -10,18 +10,19 @@
             <v-flex xs12 md4>
                   <v-text-field v-model="password" label="Password" :type="passwordShow ? 'text' : 'password'" required/>
             </v-flex>
-			<v-flex xs12 md4>
-                  <v-text-field v-model="name" label="Name"/>
-            </v-flex>
-			<v-flex xs12 md4>
-                  <v-text-field v-model="phone" label="Phone Number"/>
-            </v-flex>
-			<v-flex xs12 md4>
-                  <v-text-field v-model="email" label="E-mail"/>
-            </v-flex>
-			<v-flex xs12 md4>
+            <v-flex xs12 md4>
+                        <v-text-field v-model="name" label="Name"/>
+                  </v-flex>
+            <v-flex xs12 md4>
+                        <v-text-field v-model="phone" label="Phone Number"/>
+                  </v-flex>
+            <v-flex xs12 md4>
+                        <v-text-field v-model="email" label="E-mail"/>
+                  </v-flex>
+            <v-flex xs12 md4>
                   <v-text-field v-model="live" label="Address"/>
             </v-flex>
+            
             <v-flex xs12 text-xs-right>
                   <v-btn class="mx-0 font-weight-light" color="success" @click="signUp">SingUp</v-btn>
             </v-flex>
@@ -49,12 +50,12 @@ export default {
   methods: {
     signUp: function () {
       this.$http.post('/users', { //axios 사용
-		ID:this.id,
-		PW:this.password,
-		name:this.name,
-		phone:this.phone,
-		email:this.email,
-		live:this.live
+        ID:this.id,
+        PW:this.password,
+        name:this.name,
+        phone:this.phone,
+        email:this.email,
+        live:this.live
       })
       .then((response) => {
         if (response.data.success === false) {
