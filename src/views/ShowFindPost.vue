@@ -108,11 +108,17 @@
                     </v-snackbar>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
-                  <v-btn class="mx-0 font-weight-light" color="success" @click="onPostChange(findpost._id)">게시글 수정</v-btn>
+                  <v-btn 
+                    class="mx-0 font-weight-light" 
+                    color="success" 
+                    @click="onPostChange(findpost._id)"
+                    v-if="$store.state.userInfo.ID === findpost.id"
+                    >게시글 수정</v-btn>
                   <v-divider vertical></v-divider>
                   <v-btn
                       color="error"
                       dark
+                      v-if="$store.state.userInfo.ID === findpost.id"
                       @click.stop="postDeleteDialog = true"
                     >
                     게시글 삭제

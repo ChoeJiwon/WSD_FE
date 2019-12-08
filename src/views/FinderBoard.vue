@@ -36,10 +36,12 @@
       </v-flex>
       <v-flex md12>
         <material-card color="green" title="발견 게시판" text="제목을 클릭하여 게시글을 확인하세요.">
+        </material-card>
           <v-data-table
             :headers="headers" 
             :items="items" 
             item-key="_id"
+            loading-text="Loading..."
             :items-per-page="5"
             class="elevation-1"
             :search="search">
@@ -60,7 +62,6 @@
               <td class="text-xs-right">{{ item.created }}</td>
             </template>
           </v-data-table>
-        </material-card>
       </v-flex>
     </v-layout>
   </v-container>

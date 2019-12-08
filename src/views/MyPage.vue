@@ -1,6 +1,30 @@
 <template>
   <v-container fill-height fluid>
     <v-layout justify-center align-center>
+      <v-dialog
+        v-model="loginDialog"
+        persistent
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title class="headline">불러오기 실패</v-card-title>
+
+          <v-card-text>
+            로그인이 필요한 기능입니다.
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              text
+              @click="moveLogin"
+            >
+              로그인 이동
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-flex xs12>
         <material-card color="green" title="edit your information" text="입력하세요.">
           <v-card-text>
@@ -39,23 +63,28 @@
 export default {
   data: function () {
     return {
-		user_id:'',
-		id: '',
-		password: '',
-		name: '',
-		phone: '',
-		email: '',
-		live: ''
-	}
+      user_id:'',
+      id: '',
+      password: '',
+      name: '',
+      phone: '',
+      email: '',
+      live: '',
+      loginDialog: false
+    }
   },
   created: function(){
-
-	  this.user_id=this.$store.state.userInfo._id;
-	  this.id=this.$store.state.userInfo.ID;
-	  this.name=this.$store.state.userInfo.name;
-	  this.phone=this.$store.state.userInfo.phone;
-	  this.email = this.$store.state.userInfo.email;
-	  this.live = this.$store.state.userInfo.live;
+    if(this.$store.state.isUserInfoGetted === false){
+      this.loginDialog = true;
+    }
+    else{
+      this.user_id=this.$store.state.userInfo._id;
+      this.id=this.$store.state.userInfo.ID;
+      this.name=this.$store.state.userInfo.name;
+      this.phone=this.$store.state.userInfo.phone;
+      this.email = this.$store.state.userInfo.email;
+      this.live = this.$store.state.userInfo.live;
+    }
 
   },
   methods: {
@@ -79,6 +108,10 @@ export default {
       .catch(function (error) {
         alert(error.response.data.error)
       })
+    },
+    moveLogin: function(){
+      this.loginDialog = false;
+      this.$router.push(`login`);
     }
   }
 }
