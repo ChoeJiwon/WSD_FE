@@ -108,13 +108,19 @@
                     </v-snackbar>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
-                  <v-btn class="mx-0 font-weight-light" color="success">게시글 수정</v-btn>
+                  <v-btn 
+                    class="mx-0 font-weight-light" 
+                    color="success"
+                    @
+                    v-if="$store.state.userInfo.ID === lostpost.id"
+                    >게시글 수정</v-btn>
                   <v-divider vertical></v-divider>
                   <v-btn
-                      color="error"
-                      dark
-                      @click.stop="postDeleteDialog = true"
-                    >
+                    color="error"
+                    dark
+                    v-if="$store.state.userInfo.ID === lostpost.id"
+                    @click.stop="postDeleteDialog = true"
+                  >
                     게시글 삭제
                     </v-btn>
 
@@ -219,9 +225,6 @@ export default {
             this.$http.post(`/losterboard/${_id}/comments`,
                 {newComment: this.newComment})
                 .then((res)=>{
-                  // console.log("newComment: " + this.newComment);
-                  //   this.lostpost.comments.push(this.newComment);
-                  //   this.items.push(this.newComment);
                     this.newComment={
                       writer: '',
                       body: '',
@@ -231,11 +234,6 @@ export default {
                     .then((response) => {
                         this.lostpost = response.data.board;
                         this.items = this.lostpost.comments;
-                        // for(let i = 0; i < this.items.length; i++){
-                        //   console.log(i + "번째 댓글 id: " + this.items[i]._id)
-                        //   console.log(i + "번째 댓글 작성자 id: " + this.items[i].id)
-                        //   console.log(i + "번째 댓글 내용: " + this.items[i].body)
-                        // }
                     });
                 }).catch((err) => {
                     alert(err);
@@ -247,15 +245,9 @@ export default {
             const post_idx = this.$route.params._id;
             const user_id = this.$store.state.userInfo.ID;
 
-            // console.log("삭제하려는 댓글 id: "+comment_idx)
-            // console.log("post_idx: "+post_idx)
-            // console.log("user_id: "+user_id)
-
             const index = this.items.findIndex(function(item, i){
               return item._id === comment_idx
             });
-
-            // console.log("삭제하려는 댓글 index : " + index)
 
             if(this.items[index].id === user_id){
               this.$http.delete(`/losterboard/${post_idx}/comments/${comment_idx}`)
@@ -280,14 +272,6 @@ export default {
             const user_id = this.$store.state.userInfo._id;
             const user_ID = this.$store.state.userInfo.ID;
             const post_writer_ID = this.lostpost.id;
-
-            // console.log(this.$store.state.userInfo._id);
-            // console.log("user ID: "+this.$store.state.userInfo.ID);
-            // console.log("post id: " + this.lostpost.id)
-            // console.log("writer: " + this.lostpost.writer)
-            // console.log("user name: " + this.$store.state.userInfo.name)
-            // console.log("p id : " + post_id)
-            // console.log("u _id : " + user_id)
 
             if(user_ID === post_writer_ID){
               this.$http.delete(`/losterboard/${post_id}`)
